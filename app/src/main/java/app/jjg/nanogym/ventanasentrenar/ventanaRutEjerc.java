@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -25,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import app.jjg.nanogym.R;
 import app.jjg.nanogym.database.EjerciciosTL;
 import app.jjg.nanogym.database.Modelo;
+import app.jjg.nanogym.ventanashistorial.ventanaBTejer;
 
 public class ventanaRutEjerc extends AppCompatActivity {
 
@@ -239,6 +241,16 @@ public class ventanaRutEjerc extends AppCompatActivity {
         String rmFormateado = String.format("%.1f", rm); //Solo quiero que se vea un decimal
 
         return rmFormateado;
+    }
+
+
+
+    //Bt historia
+    public void onClickHistoria(View view){
+        Intent intent = new Intent(this, ventanaBTejer.class);
+        intent.putExtra("idRutina", idRutina); //Le enviamos el id de la rutina a la siguiente pantalla
+        intent.putExtra("dia", dia);
+        startActivity(intent);
     }
 
 

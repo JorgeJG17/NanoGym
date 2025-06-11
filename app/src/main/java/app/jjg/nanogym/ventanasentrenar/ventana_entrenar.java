@@ -1,15 +1,12 @@
 package app.jjg.nanogym.ventanasentrenar;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 import app.jjg.nanogym.R;
 import app.jjg.nanogym.database.Modelo;
 import app.jjg.nanogym.database.RutinasTL;
-import app.jjg.nanogym.ventanascrear.ventanaRutinas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +67,7 @@ public class ventana_entrenar extends AppCompatActivity {
                     if(resultados == 1){
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Modo Borrar Desactivado");
-                        builder.setMessage("La rutina se ha eliminado correctamente. El modo borrar ha sido desactivado.");
+                        builder.setMessage("La rutina se ha eliminado correctamente. El modo Borrar ha sido desactivado.");
                         builder.setPositiveButton("OK", null);
                         builder.show();
 
@@ -133,8 +129,8 @@ public class ventana_entrenar extends AppCompatActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Modo Borrar Activado");
-            builder.setMessage("La siguiente rutina que pulses a continuación sera eliminada junto a su días y ejercicios.\n"+
-                    "\n" + "Si no desea borrar ninguna rutina puedes volver a pulsar este boton para desactivar este modo borrar.");
+            builder.setMessage("La siguiente rutina que pulses a continuación será eliminada junto a su días y ejercicios.\n"+
+                    "\n" + "Si no desea borrar ninguna rutina, puedes volver a pulsar este botón para desactivar este modo borrar.");
             builder.setPositiveButton("OK", null);
             builder.show();
 
@@ -143,7 +139,7 @@ public class ventana_entrenar extends AppCompatActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Modo Borrar Desactivado");
-            builder.setMessage("El modo borrar ha sido desactivado.");
+            builder.setMessage("El modo Borrar ha sido desactivado.");
             builder.setPositiveButton("OK", null);
             builder.show();
             btborrar = false;

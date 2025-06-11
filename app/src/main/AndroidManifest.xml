@@ -13,6 +13,12 @@
         android:theme="@style/Theme.GymRutinaProyect"
         tools:targetApi="31">
         <activity
+            android:name=".ventanashistorial.ventanaHistorial"
+            android:exported="false" />
+        <activity
+            android:name=".ventanashistorial.ventanaBTejer"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -25,24 +31,24 @@
         <activity
             android:name=".ventanasentrenar.ventanaRutEjerc"
             android:exported="false"
-            android:screenOrientation="portrait"/> <!--Para desactiivar la rotacion, solo vertical-->
+            android:screenOrientation="portrait" /> <!-- Para desactiivar la rotacion, solo vertical -->
         <activity
             android:name=".ventanasentrenar.ventana_entrenar"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ventanascrear.ventanaEjercicios"
             android:exported="false"
-            android:theme="@style/Theme.GymRutinaProyect"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GymRutinaProyect" />
         <activity
             android:name=".ventanascrear.ventanaRutinas"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ventanasentrenar.ventana_dias"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

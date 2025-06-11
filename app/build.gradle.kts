@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "app.jjg.nanogym"
-        minSdk = 22
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0Alpha"
@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0") //Libreria de graficos de github
 
     implementation(libs.appcompat)
     implementation(libs.material)
