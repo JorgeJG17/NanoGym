@@ -62,7 +62,7 @@ public class ventanaBTejer extends AppCompatActivity {
 
                     Intent intent = new Intent(this, ventanaHistorial.class);
                     intent.putExtra("idEjercicio", (int) v.getTag()); //Le enviamos el id de la rutina a la siguiente pantalla
-                    startActivity(intent); //TODO vamos por aqui hay que crear la pantalla donde hacer el historial del ejercicio pulsado
+                    startActivity(intent);
 
                     // Aquí puedes utilizar el ID de la rutina
                     //Toast.makeText(MiActividad.this, "ID de la rutina: " + rutina.getId(), Toast.LENGTH_SHORT).show();
