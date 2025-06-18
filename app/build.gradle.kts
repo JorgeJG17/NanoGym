@@ -10,8 +10,8 @@ android {
         applicationId = "app.jjg.nanogym"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0Alpha"
+        versionCode = 2
+        versionName = "1.1Alpha"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

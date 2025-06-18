@@ -8,6 +8,9 @@
     android:background="#292929"
     tools:context=".ventanasentrenar.ventana_entrenar">
 
+    <!--//TASK 7 Ponemos como pantalla principal la ventana_entrenar
+        Añadimos los bt de la anterior pantalla principal-->
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="320dp"
@@ -25,10 +28,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.056" />
 
+
     <LinearLayout
         android:id="@+id/layoutBotones"
-        android:layout_width="371dp"
-        android:layout_height="537dp"
+        android:layout_width="383dp"
+        android:layout_height="224dp"
         android:background="#292929"
         android:orientation="vertical"
         android:padding="16dp"
@@ -36,7 +40,102 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443"></LinearLayout>
+        app:layout_constraintVertical_bias="0.147"></LinearLayout>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="113dp"
+        android:layout_height="40dp"
+        android:onClick="onButtonClick"
+        android:text="Eliminar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="113dp"
+        android:layout_height="40dp"
+        android:onClick="onButtonClick3"
+        android:text="Crear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871" />
+
+    <!--TASK 7 bt que nos lleva a la ventana de ajuste-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="55dp"
+        android:layout_height="33dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onAjuste"
+        android:src="@drawable/ajuste_pixel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="288dp"
+        android:layout_height="144dp"
+        android:layout_gravity="center"
+        android:contentDescription="Icono"
+        android:src="@drawable/mancuerna_px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759" />
+
+    <ImageView
+        android:id="@+id/imageViewd"
+        android:layout_width="363dp"
+        android:layout_height="153dp"
+        android:layout_gravity="center"
+        android:contentDescription="Icono"
+        android:fadingEdge="none"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onEventos"
+        android:requiresFadingEdge="none"
+        android:src="@drawable/eventos_cartel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538" />
+
+    <TextView
+        android:id="@+id/tituloApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/departuremonoregular"
+        android:rotationX="32"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="12"
+        android:text="NanoGYM"
+        android:textAlignment="center"
+        android:textColor="#42E6B4"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.808" />
 
     <TextView
         android:id="@+id/textView2"
@@ -48,39 +147,42 @@
         android:textColorLink="#000000"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953" />
+        app:layout_constraintVertical_bias="0.926" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="253dp"
+        android:layout_height="26dp"
+        android:text="© 2025 NanoGym - Todos los derechos reservados."
+        android:textColor="#FFFFFF"
+        android:textColorLink="#000000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.997" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.0Alpha"
+        android:text="Versión: 1.1Alpha"
         android:textColor="#FFFFFF"
         android:textColorLink="#000000"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
+        app:layout_constraintVertical_bias="0.95" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="113dp"
-        android:layout_height="40dp"
-        android:onClick="onButtonClick"
-        android:text="Eliminar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.913" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

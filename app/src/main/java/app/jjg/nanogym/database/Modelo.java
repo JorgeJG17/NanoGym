@@ -54,6 +54,7 @@ public class Modelo {
         SQLiteDatabase db = this.getConn(context);
         try{
             db.execSQL(sql);
+            db.execSQL(InsertarHistorial(dto)); //TASK 15 Hacemos que realice un primer registro en el historial
             res = 1; //Se inserto correctamente
         }catch (Exception e){
             res = 3333; //Lanza un error no controlado
@@ -133,14 +134,14 @@ public class Modelo {
         SQLiteDatabase db = this.getConn(context);
         Cursor resultados;
         int res;
-        LocalDate fecha = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //LocalDate fecha = LocalDate.now();
+        //DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        String fechaFormateada = fecha.format(formato);
+        //String fechaFormateada = fecha.format(formato);
 
         String sql = "UPDATE tlejercicios SET series = '"+ dto.getSeries() +"',repes = '"+ dto.getRepes() +"',peso = '"+ dto.getPeso() +"' WHERE idrutinas = '"+ dto.getIdRutina() +"' AND id = '"+ dto.getId() +"'";
         String sqlH = "SELECT peso FROM tlejercicios WHERE id = '"+ dto.getId() +"'";
-        String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
+        //String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
         resultados = db.rawQuery(sqlH, null);
         resultados.moveToFirst();
 
@@ -148,7 +149,7 @@ public class Modelo {
             //Si el peso nuevo es diferente al que estaba antes entoces insertamos como historial del ejercicioo
             if(Integer.parseInt(dto.getPeso()) != resultados.getInt(0)){
 
-                db.execSQL(sqlIH);
+                db.execSQL(InsertarHistorial(dto));
             }
 
             db.execSQL(sql);
@@ -203,5 +204,16 @@ public class Modelo {
         return res; //Devolvemos el resultado
     }
 
+    //Metodo para insetar en Historial //TASK 15
+    private String InsertarHistorial(EjerciciosTL dto){
+
+        LocalDate fecha = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String fechaFormateada = fecha.format(formato);
+        String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
+
+        return sqlIH;
+    }
 
 }

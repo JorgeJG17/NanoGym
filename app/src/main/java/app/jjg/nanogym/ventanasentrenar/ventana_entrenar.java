@@ -1,5 +1,6 @@
 package app.jjg.nanogym.ventanasentrenar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import app.jjg.nanogym.R;
 import app.jjg.nanogym.database.Modelo;
 import app.jjg.nanogym.database.RutinasTL;
+import app.jjg.nanogym.ventanaAjuste;
+import app.jjg.nanogym.ventanascrear.ventanaRutinas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ public class ventana_entrenar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //Que no deje el modo oscuro, asi manetenmos los colores de nuestra app //TASK 7 POR CAMBIAR DE PANTALLA PRINCIPAL
         setContentView(R.layout.activity_ventana_entrenar);
         PintarBT();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -60,30 +65,45 @@ public class ventana_entrenar extends AppCompatActivity {
                     // Aquí puedes utilizar el ID de la rutina
                     //Toast.makeText(MiActividad.this, "ID de la rutina: " + rutina.getId(), Toast.LENGTH_SHORT).show();
                 } else{
-                    Modelo obj = new Modelo();
-                    int resultados = obj.EliminarRutina(ventana_entrenar.this,(int) v.getTag());
 
-                    //Si se ha eliminado correctamente devolvera 1
-                    if(resultados == 1){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle("Modo Borrar Desactivado");
-                        builder.setMessage("La rutina se ha eliminado correctamente. El modo Borrar ha sido desactivado.");
-                        builder.setPositiveButton("OK", null);
-                        builder.show();
+                    //TASK 8: Poner un aviso de confirmacion antes de borrar la rutina
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Confirmación");
+                    builder.setMessage("¿Estas seguro de borrar esta rutina: "+ boton.getText() +"?");
+                    builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Modelo obj = new Modelo();
+                            int resultados = obj.EliminarRutina(ventana_entrenar.this, (int) v.getTag());
 
-                        tiempoEspera.removeCallbacks(runnable); // Cancelamos la ejecución anterior (si hay alguna programada)
-                        runnable = () -> { //En este lambda no hace falta poner el metodo run porque esta interfaz solo tiene ese metodo entcoes entiende que ese el que esta poniendo
-                            recreate(); //recargar la pantalla
-                        };
-                        tiempoEspera.postDelayed(runnable, 1500);// Programamos la tarea para que se ejecute dentro de 1500 ms (1.5 segundo)
+                            //Si se ha eliminado correctamente devolvera 1
+                            if(resultados == 1){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ventana_entrenar.this);
+                                builder.setTitle("Modo Borrar Desactivado");
+                                builder.setMessage("La rutina se ha eliminado correctamente. El modo Borrar ha sido desactivado.");
+                                builder.setPositiveButton("OK", null);
+                                builder.show();
 
-                    } else{
-                        new AlertDialog.Builder(this)
-                                .setTitle("Error")
-                                .setMessage("¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alpha.")
-                                .setPositiveButton("OK", null)
-                                .show();
-                    }
+                                tiempoEspera.removeCallbacks(runnable); // Cancelamos la ejecución anterior (si hay alguna programada)
+                                runnable = () -> { //En este lambda no hace falta poner el metodo run porque esta interfaz solo tiene ese metodo entcoes entiende que ese el que esta poniendo
+                                    recreate(); //recargar la pantalla
+                                };
+                                tiempoEspera.postDelayed(runnable, 1500);// Programamos la tarea para que se ejecute dentro de 1500 ms (1.5 segundo)
+
+                            } else{
+                                new AlertDialog.Builder(ventana_entrenar.this)
+                                        .setTitle("Error")
+                                        .setMessage("¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alpha.")
+                                        .setPositiveButton("OK", null)
+                                        .show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("No",new DialogInterface.OnClickListener() { //Si dice que no pues desactivamos el modo borrar
+                        public void onClick(DialogInterface dialog, int which) {
+                            btborrar = false;
+                        }
+                    });
+                    builder.show();
                 }
             });
 
@@ -145,6 +165,31 @@ public class ventana_entrenar extends AppCompatActivity {
             btborrar = false;
         }
     }
+
+    //Boton de  crear rutinas //TASK 7 hemos pasado la pantalla principal a la secundaria
+    public void onButtonClick3(View view){
+
+        Intent intent = new Intent(this, ventanaRutinas.class);
+        startActivity(intent);
+    }
+
+    //TASK 15 metodo del nuevo bt de ajuste
+    public void onAjuste(View view){
+
+        Intent intent = new Intent(this, ventanaAjuste.class);
+        startActivity(intent);
+    }
+
+    public void onEventos(View view){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("📅 Eventos próximamente");
+        builder.setMessage("¡Muy pronto podrás participar en retos y desafíos especiales dentro de la app!\n\nMantente atento a las actualizaciones.\n¡Gracias por tu paciencia!");
+        builder.setPositiveButton("OK", null);
+        builder.show();
+
+    }
+
 
 
     //Campos de clase

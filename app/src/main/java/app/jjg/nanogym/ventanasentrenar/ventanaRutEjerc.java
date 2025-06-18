@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -86,6 +87,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewSeries.setPadding(8, 8, 8, 8);
                 textViewSeries.setSingleLine(true);
                 textViewSeries.setGravity(Gravity.CENTER);
+                textViewSeries.setInputType(InputType.TYPE_CLASS_NUMBER); //TASK 10 Ponemos para abrir el teclado numerico
                 //textViewSeries.setId(idEjercicio);
 
                 textViewSeries.addTextChangedListener(new TextWatcher() { //Le asignamos como escuha un objeto de una clase que hereda de la interface TextWatche a campo Series
@@ -108,6 +110,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewRepes.setPadding(8, 8, 8, 8);
                 textViewRepes.setSingleLine(true);
                 textViewRepes.setGravity(Gravity.CENTER);
+                textViewRepes.setInputType(InputType.TYPE_CLASS_NUMBER); //TASK 10
                 //textViewRepes.setId(idEjercicio);
 
                 textViewRepes.addTextChangedListener(new TextWatcher() { //Lo mismo explicado en el campo Series pero con el campo Repes
@@ -133,7 +136,8 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewPeso.setPadding(8, 8, 8, 8); //La cantidad de px de la caja
                 textViewPeso.setSingleLine(true);  //Limita el texto por si llega largo que la celda no se modifique
                 textViewPeso.setGravity(Gravity.CENTER); //Centrado en la celda
-                //textViewPeso.setId(idEjercicio);ç
+                textViewPeso.setInputType(InputType.TYPE_CLASS_NUMBER); //TASK 10
+                //textViewPeso.setId(idEjercicio);
 
                 textViewPeso.addTextChangedListener(new TextWatcher() { //Lo mismo explicado en el campo Series pero con el campo Peso
 
@@ -164,7 +168,12 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewRM.setTextColor(Color.BLACK); //Color del texto
                 textViewRM.setGravity(Gravity.CENTER); //Centrado en la celda
 
-
+                //TASK: 13
+                if(pesoRutina == -1){ //Si llega -1 es que ese ejercicio marco el check de que no usara el peso ni el RM
+                    textViewPeso.setEnabled(false);
+                    textViewPeso.setText("");
+                    textViewRM.setText("");
+                }
 
                 // Agregar las celdas a la fila
                 tablaEjerc.addView(textViewNombre);

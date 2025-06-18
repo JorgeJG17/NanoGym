@@ -8,7 +8,8 @@
     android:background="#dedbab"
     tools:context=".MainActivity">
 
-    <TextView
+    <!-- //TASK 7 Ponemos como pantalla principal la ventana_entrenar
+   <TextView
         android:id="@+id/tituloApp"
         android:layout_width="226dp"
         android:layout_height="65dp"
@@ -109,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.0Alpha"
+        android:text="Versión: 1.1Alpha"
         android:textColor="#000000"
         android:textColorLink="#000000"
         android:textSize="13sp"
@@ -131,5 +132,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

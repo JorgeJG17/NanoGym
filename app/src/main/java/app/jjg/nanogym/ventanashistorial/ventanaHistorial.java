@@ -45,7 +45,11 @@ public class ventanaHistorial extends AppCompatActivity {
 
         pintarHistorial(); //Pintamos la tabla del historial del ejercicio seleccionado
 
-        pintarGrafico(); //Pintamos el grafico del historial obtenido
+        //TASK 15
+        if(contador != 1){ //Para que cuando llegue solo 1 registro pues que no pinte el grafico
+
+            pintarGrafico(); //Pintamos el grafico del historial obtenido
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
