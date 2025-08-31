@@ -40,18 +40,15 @@ public class ventanaAjuste extends AppCompatActivity {
     public void onVersion(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡Bienvenido/a a la Versión 1.1Alpha!");
+        builder.setTitle("¡Bienvenido/a a la Versión 1.2Alpha!");
         // Texto resumido para el AlertDialog
-        String mensaje = "• Check para ejercicios libres sin peso\n" +
-                "• Corrección de historial con un solo registro\n" +
-                "• Inserción automática en historial al crear ejercicio\n" +
-                "• Primera letra de los nombres ahora en mayúscula\n" +
-                "• Teclado numérico en campos de peso/series/repes\n" +
-                "• Nueva pantalla principal: Rutinas\n" +
-                "• Botón de ajustes añadido\n" +
-                "• Confirmación al borrar rutina\n" +
-                "• Botón para borrar ejercicios en creación\n" +
-                "• Nueva sección: Eventos (¡Próximamente!)";
+        String mensaje = "• Apartado eventos: estamos muy avanzados y queremos ofrecer la mejor experiencia posible (¡Próximamente!)\n" +
+                "• Nombres personalizados para los días de entrenamiento (ej: Día pecho, Día espalda)\n" +
+                "• Peso con decimales permitido\n" +
+                "• Ordenar ejercicios en la tabla\n" +
+                "• Añadir nuevos ejercicios a una rutina y día existente\n" +
+                "• Eliminar ejercicios ya creados\n" +
+                "• Corrección de varios bugs para mejorar la estabilidad";
 
         builder.setMessage(mensaje);
         builder.setPositiveButton("OK", null);

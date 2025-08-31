@@ -13,6 +13,18 @@
         android:theme="@style/Theme.GymRutinaProyect"
         tools:targetApi="31">
         <activity
+            android:name=".eventos.tipo_Eventos"
+            android:exported="false" />
+        <activity
+            android:name=".eventos.ejer_eventos"
+            android:exported="false" />
+        <activity
+            android:name=".eventos.dias_Eventos"
+            android:exported="false" />
+        <activity
+            android:name=".eventos.ventanaEventos"
+            android:exported="false" />
+        <activity
             android:name=".ventanaAjuste"
             android:exported="false" />
         <activity

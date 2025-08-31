@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import app.jjg.nanogym.R;
 import app.jjg.nanogym.database.Modelo;
 import app.jjg.nanogym.database.RutinasTL;
+import app.jjg.nanogym.eventos.ventanaEventos;
 import app.jjg.nanogym.ventanaAjuste;
 import app.jjg.nanogym.ventanascrear.ventanaRutinas;
 
@@ -179,14 +180,21 @@ public class ventana_entrenar extends AppCompatActivity {
         Intent intent = new Intent(this, ventanaAjuste.class);
         startActivity(intent);
     }
-
+    //TASK 5
     public void onEventos(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("📅 Eventos próximamente");
-        builder.setMessage("¡Muy pronto podrás participar en retos y desafíos especiales dentro de la app!\n\nMantente atento a las actualizaciones.\n¡Gracias por tu paciencia!");
+        builder.setTitle("📅 Eventos en Octubre");
+        builder.setMessage("¡En octubre podrás participar en retos y desafíos especiales dentro de la app!\n" +
+                "Estamos trabajando para ofrecerte la mejor experiencia posible. Aunque octubre es la fecha estimada,\n" +
+                "podrían surgir algunos retrasos.\n\n" +
+                "Mantente atento a las actualizaciones.\n¡Gracias por tu paciencia!");
         builder.setPositiveButton("OK", null);
         builder.show();
+
+
+        //Intent intent = new Intent(this, ventanaEventos.class);
+        //startActivity(intent);
 
     }
 

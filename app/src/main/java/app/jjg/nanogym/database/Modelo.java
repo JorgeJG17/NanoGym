@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Modelo {
-
-    private static final int DB_VERSION = 2; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
+    //Vuleve a ponerla a la 3
+    private static final int DB_VERSION = 6; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
 
     //Metodo que genera la base de datos, la llamara dbgym
     public SQLiteDatabase getConn(Context context){
@@ -110,7 +110,7 @@ public class Modelo {
         SQLiteDatabase db = this.getConn(context);
         Cursor resultados;
 
-        String sqlSelect = "SELECT id,nombre,series,repes,peso FROM tlejercicios WHERE idrutinas = '"+ idRutina +"' AND dia = '"+dia+"'";
+        String sqlSelect = "SELECT id,nombre,series,repes,peso FROM tlejercicios WHERE idrutinas = '"+ idRutina +"' AND dia = '"+dia+"' ORDER BY orden";
         resultados = db.rawQuery(sqlSelect, null);
 
         //db.close();
@@ -130,7 +130,7 @@ public class Modelo {
     }
 
     //Metodo para actualizar los datos de la tabla de ejercicios, peso, repes, series
-    public int ActualizarDatosTabla(Context context, EjerciciosTL dto){
+    public int ActualizarDatosTabla(Context context, EjerciciosTL dto, boolean evento){
         SQLiteDatabase db = this.getConn(context);
         Cursor resultados;
         int res;
@@ -139,26 +139,35 @@ public class Modelo {
 
         //String fechaFormateada = fecha.format(formato);
 
-        String sql = "UPDATE tlejercicios SET series = '"+ dto.getSeries() +"',repes = '"+ dto.getRepes() +"',peso = '"+ dto.getPeso() +"' WHERE idrutinas = '"+ dto.getIdRutina() +"' AND id = '"+ dto.getId() +"'";
-        String sqlH = "SELECT peso FROM tlejercicios WHERE id = '"+ dto.getId() +"'";
-        //String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
-        resultados = db.rawQuery(sqlH, null);
-        resultados.moveToFirst();
-
-        try{
-            //Si el peso nuevo es diferente al que estaba antes entoces insertamos como historial del ejercicioo
-            if(Integer.parseInt(dto.getPeso()) != resultados.getInt(0)){
-
-                db.execSQL(InsertarHistorial(dto));
+        if(evento == true){
+            String sql = "UPDATE tlejercicios SET series = '"+ dto.getSeries() +"',repes = '"+ dto.getRepes() +"',peso = '"+ dto.getPeso() +"' WHERE ideventos = '"+ dto.getIdRutina() +"' AND id = '"+ dto.getId() +"'";
+            try{
+                db.execSQL(sql);
+                res = 1; //Se inserto correctamente
+            }catch (Exception e){
+                res = 3333; //Lanza un error no controlado
             }
-
-            db.execSQL(sql);
-            res = 1; //Se inserto correctamente
-        }catch (Exception e){
-            res = 3333; //Lanza un error no controlado
         }
+        else{
+            String sql = "UPDATE tlejercicios SET series = '"+ dto.getSeries() +"',repes = '"+ dto.getRepes() +"',peso = '"+ dto.getPeso() +"' WHERE idrutinas = '"+ dto.getIdRutina() +"' AND id = '"+ dto.getId() +"'";
+            String sqlH = "SELECT peso FROM tlejercicios WHERE id = '"+ dto.getId() +"'";
+            //String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
+            resultados = db.rawQuery(sqlH, null);
+            resultados.moveToFirst();
 
+            try{
+                //Si el peso nuevo es diferente al que estaba antes entoces insertamos como historial del ejercicioo
+                if(Double.parseDouble(dto.getPeso()) != resultados.getDouble(0)){
 
+                    db.execSQL(InsertarHistorial(dto));
+                }
+
+                db.execSQL(sql);
+                res = 1; //Se inserto correctamente
+            }catch (Exception e){
+                res = 3333; //Lanza un error no controlado
+            }
+        }
 
         db.close();
         return res; //Devolvemos el resultado
@@ -214,6 +223,143 @@ public class Modelo {
         String sqlIH = "INSERT INTO tlhistorial (idejercicio, repes, peso, date) VALUES ('"+ dto.getId() +"','"+ dto.getRepes() +"','"+ dto.getPeso() +"','"+ fechaFormateada +"')";
 
         return sqlIH;
+    }
+
+
+    //TASK 6
+    //Metodo para seleccionar el nombre del dia y rutina que llega por parametros
+    public String SeleccionarTipDia(Context context, int idRutina, int dia){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        String nom_d;
+
+        String sqlSelect = "SELECT nom_dia FROM tlejercicios WHERE idrutinas = '"+ idRutina +"' AND dia = '"+dia+"'";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        resultados.moveToFirst();
+        nom_d = resultados.getString(0);
+
+        resultados.close();
+        db.close();
+        return nom_d;
+    }
+
+    //TASK 6
+    //Metodo para actualizar el nombre del dia, rutina y el nuevo nombre que llega por parametros
+    public  int ActualizarNomDia(Context context, int idRutina, int dia, String nd){
+        SQLiteDatabase db = this.getConn(context);
+        int res;
+
+        String sql = "UPDATE tlejercicios SET nom_dia ='"+ nd +"' WHERE idrutinas = '"+ idRutina +"' AND dia = '"+dia+"'";
+
+        try{
+            db.execSQL(sql);
+            res = 1; //Se inserto correctamente
+        }catch (Exception e){
+            res = 3333; //Lanza un error no controlado
+        }
+
+        db.close();
+        return res;
+    }
+
+    //TASK 5
+    public char[] tiposDisponibleEventos(Context context, int idEvento){
+
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        char[] array = new char[5];
+
+        String sql = "SELECT hiper,perder,fuerza,salud,toni FROM tleventos WHERE id ='"+ idEvento +"'";
+        resultados = db.rawQuery(sql, null);
+        resultados.moveToFirst();
+
+        for(int i=0; i<5; i++){
+            array[i] = resultados.getString(i).charAt(0);;
+        }
+
+        return array;
+    }
+
+    //Consulta para sacar los dias de un evento TASK 5
+    public Cursor SeleccionarDiasEV(Context context, int idEvento){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+
+        String sqlSelect = "SELECT dias FROM tleventos WHERE id = '"+ idEvento +"'";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        //db.close();
+        return resultados; //Devolvemos nuemro los días  deL EVENTO encontradas en la db
+    }
+
+    public int SeleccionaridEvento(Context context, String cod){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        int id;
+
+        String sqlSelect = "SELECT idEvento FROM tleventos WHERE codigo = '"+ cod +"'";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        resultados.moveToFirst();
+        id = resultados.getInt(0);
+
+        resultados.close();
+        db.close();
+        //db.close();
+        return id; //Devolvemos nuemro los días  deL EVENTO encontradas en la db
+    }
+
+
+    //Consulta para sacar los ejercicios de una rutina y dia
+    public Cursor SeleccionarEjerciciosEventos(Context context, int idEvento, int dia, int tipo){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+
+        String sqlSelect = "SELECT id,nombre,series,repes,peso FROM tlejercicios WHERE ideventos = '"+ idEvento +"' AND dia = '"+dia+"' AND tipo = '"+tipo+"'";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        //db.close();
+        return resultados; //Devolvemos todas los ejercicios de la rutina que nos ha llegado por parametros
+    }
+
+
+    //Metodo para actualizar los datos de la tabla de ejercicios, peso, repes, series
+    public int ActualizarOrdenTabla(Context context, int ord, int idejer, int idrut){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        int res;
+            String sql = "UPDATE tlejercicios SET orden ='"+ ord +"' WHERE idrutinas = '"+ idrut +"' AND id = '"+ idejer +"'";
+            try{
+                db.execSQL(sql);
+                res = 1; //Se inserto correctamente
+            }catch (Exception e){
+                res = 3333; //Lanza un error no controlado
+            }
+
+        db.close();
+        return res; //Devolvemos el resultado
+    }
+
+
+
+    //Metodo para eliminar un ejerc, se borran sus ejercicios en caso de existir
+    public int EliminarEjercicio(Context context, int idejer){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        int res;
+
+        String sql = "DELETE FROM tlejercicios WHERE id = '"+ idejer +"'";
+
+            try{
+                db.execSQL(sql);
+                res = 1; //Se elimino correctamente
+            }catch (Exception e){
+                res = 3333; //Se lanza un error no controlado
+            }
+
+        db.close();
+        return res; //Devolvemos el resultado
     }
 
 }

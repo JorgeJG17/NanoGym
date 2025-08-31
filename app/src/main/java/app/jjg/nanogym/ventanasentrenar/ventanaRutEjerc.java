@@ -1,5 +1,7 @@
 package app.jjg.nanogym.ventanasentrenar;
 
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -8,7 +10,9 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -41,6 +45,21 @@ public class ventanaRutEjerc extends AppCompatActivity {
         idRutina = intent.getIntExtra("idRutina", -1); //recuperadmos el idRutina
         dia = intent.getIntExtra("dia", -1); //Recuperamos el dia de la pantalla anterior
 
+        //TASK 6
+        nom_dia = findViewById(R.id.nomdia);
+        nom_dia.setText(ventana_dias.consultarTipDia(ventanaRutEjerc.this,idRutina,dia)); //TASK 6 //Usamos un metodo static de la clase ventana_dias
+        nom_dia.addTextChangedListener(new TextWatcher() { //Le asignamos como escuha un objeto de una clase que hereda de la interface TextWatche a campo Series
+            //La clase es anonima por eso es así
+            public void afterTextChanged(Editable s) { //A este metodo se le llama cada vez que usuario realiza un cambio en nombre del dia
+
+                Modelo obj = new Modelo();
+                obj.ActualizarNomDia(ventanaRutEjerc.this, idRutina, dia, nom_dia.getText().toString().trim()); //Llamamos para actualizar en bd
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //Override obligatorio de la interfaz
+            public void onTextChanged(CharSequence s, int start, int before, int count) {} //Override obligatorio de la interfaz
+        });
+
         nactDia = findViewById(R.id.textdias);
         nactDia.setText("Día: " + dia);//Pintamos el dia seleccionado
 
@@ -66,7 +85,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 String nombreEje = resultados.getString(1);
                 int seriesRutina = resultados.getInt(2);
                 int repesRutina = resultados.getInt(3);
-                int pesoRutina = resultados.getInt(4);
+                double pesoRutina = resultados.getDouble(4);
 
                 TableRow tablaEjerc= new TableRow(this);
                 //***************************************************************************************************************************************
@@ -79,6 +98,58 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewNombre.setSingleLine(true);
                 textViewNombre.setId(idEjercicio);
 
+                textViewNombre.setOnLongClickListener(v -> {
+                    if (modoEliminar) {
+                        // Eliminar la fila completa
+
+                        int respuesta = obj.EliminarEjercicio(ventanaRutEjerc.this,textViewNombre.getId());
+
+                        if(respuesta == 1){
+                            Toast.makeText(ventanaRutEjerc.this, "Ok", Toast.LENGTH_SHORT).show();
+                            recreate(); //recargar la pantalla
+                        } else{
+                            new AlertDialog.Builder(ventanaRutEjerc.this)
+                                    .setTitle("Error")
+                                    .setMessage("¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alpha.")
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                            //Toast.makeText(ventanaRutEjerc.this, "¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alfa.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        return true;
+                    } else {
+                        // Si no está en modo eliminar -> seguir con el drag & drop
+                        ClipData data = ClipData.newPlainText("", "");
+                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(tablaEjerc);
+                        v.startDragAndDrop(data, shadowBuilder, tablaEjerc, 0);
+                        return true;
+                    }
+                });
+
+                //TODO ESTAMOS VIENDO COMO HACER QUE SE DESPLACE LA FILA ENTERA Y SE PUEDA PONER EN MEDIO
+                /*tablaEjerc.setOnDragListener((v, event) -> {
+                    switch (event.getAction()) {
+                        case DragEvent.ACTION_DRAG_ENTERED:
+                            v.setBackgroundColor(Color.LTGRAY);
+                            return true;
+                        case DragEvent.ACTION_DRAG_EXITED:
+                            v.setBackgroundColor(Color.TRANSPARENT);
+                            return true;
+                        case DragEvent.ACTION_DROP:
+                            View draggedRow = (View) event.getLocalState();
+                            if (draggedRow == v) return true; // no mover sobre sí mismo
+
+                            int index = tableLayout.indexOfChild(v);
+                            tableLayout.removeView(draggedRow);
+                            tableLayout.addView(draggedRow, index);
+                            v.setBackgroundColor(Color.TRANSPARENT);
+                            return true;
+                        case DragEvent.ACTION_DRAG_ENDED:
+                            v.setBackgroundColor(Color.TRANSPARENT);
+                            return true;
+                    }
+                    return true;
+                });*/
                 //***************************************************************************************************************************************
 
                 EditText textViewSeries = new EditText(this);
@@ -136,7 +207,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewPeso.setPadding(8, 8, 8, 8); //La cantidad de px de la caja
                 textViewPeso.setSingleLine(true);  //Limita el texto por si llega largo que la celda no se modifique
                 textViewPeso.setGravity(Gravity.CENTER); //Centrado en la celda
-                textViewPeso.setInputType(InputType.TYPE_CLASS_NUMBER); //TASK 10
+                textViewPeso.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL); //TASK 10
                 //textViewPeso.setId(idEjercicio);
 
                 textViewPeso.addTextChangedListener(new TextWatcher() { //Lo mismo explicado en el campo Series pero con el campo Peso
@@ -190,6 +261,46 @@ public class ventanaRutEjerc extends AppCompatActivity {
 
         //Cuando salimos del bucle verificamos que hayamos entrado viendo que resultado no era null y cerramos el cursor
         if (resultados != null) {
+
+            tableLayout.setOnDragListener((v, event) -> { //TODO demomento esto funciona si lo ordenadena para abajo, en el medio no
+                switch (event.getAction()) {
+                    case DragEvent.ACTION_DROP:
+                        View draggedRow = (View) event.getLocalState();
+                        float y = event.getY();
+
+                        int targetIndex = 0; // índice donde insertar
+                        for (int i = 0; i < tableLayout.getChildCount(); i++) {
+                            View child = tableLayout.getChildAt(i);
+
+                            if (child == draggedRow) continue; // ignorar la fila que se mueve
+
+                            float childCenterY = child.getTop() + child.getHeight() / 2f;
+
+                            if (y < childCenterY) {
+                                targetIndex = i;
+                                break;
+                            } else {
+                                targetIndex = i + 1;
+                            }
+                        }
+
+                        // quitar la fila primero
+                        tableLayout.removeView(draggedRow);
+
+                        // seguridad: no pasarse del rango
+                        if (targetIndex > tableLayout.getChildCount()) {
+                            targetIndex = tableLayout.getChildCount();
+                        }
+
+                        // añadir en la posición correcta
+                        tableLayout.addView(draggedRow, targetIndex);
+
+                        ActualizarOrden();
+                        return true;
+                }
+                return true;
+            });
+
             resultados.close();
         }
     }
@@ -198,7 +309,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
 
         Modelo obj = new Modelo(); //Nos conectamos a la bd
 
-        int resultados = obj.ActualizarDatosTabla(ventanaRutEjerc.this,eje);
+        int resultados = obj.ActualizarDatosTabla(ventanaRutEjerc.this,eje,false);
 
         //Si se ha actualizado correctamente devolvera 1
         if(resultados == 1){
@@ -243,7 +354,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
         }
     }
 
-    private  String CalculadorDeRM(int p,int r){ //Metodo para calcular la repe max
+    private  String CalculadorDeRM(double p,int r){ //Metodo para calcular la repe max
 
         double rm = p/(1.0278-(0.0278*r)); //Formula de la repr max siendo p peso y r repeticiones
 
@@ -252,21 +363,124 @@ public class ventanaRutEjerc extends AppCompatActivity {
         return rmFormateado;
     }
 
+    private void ActualizarOrden(){
 
+        Modelo obj = new Modelo(); //Nos conectamos a la bd
+
+        for(int i = 1; i < tableLayout.getChildCount(); i++){
+
+            TableRow row = (TableRow) tableLayout.getChildAt(i);
+            int id = row.getChildAt(0).getId();
+
+
+            int resultados = obj.ActualizarOrdenTabla(ventanaRutEjerc.this,i,id,idRutina);
+
+            //Si se ha actualizado correctamente devolvera 1
+            if(resultados == 1){
+                Toast.makeText(ventanaRutEjerc.this, "Ok", Toast.LENGTH_SHORT).show();
+                recreate(); //recargar la pantalla
+            } else{
+                new AlertDialog.Builder(this)
+                        .setTitle("Error")
+                        .setMessage("¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alpha.")
+                        .setPositiveButton("OK", null)
+                        .show();
+                //Toast.makeText(ventanaRutEjerc.this, "¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alfa.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     //Bt historia
     public void onClickHistoria(View view){
+
         Intent intent = new Intent(this, ventanaBTejer.class);
         intent.putExtra("idRutina", idRutina); //Le enviamos el id de la rutina a la siguiente pantalla
         intent.putExtra("dia", dia);
         startActivity(intent);
     }
 
+    public void onClickAnnadir(View v) {
+        // Inflar el layout del diálogo
+        LayoutInflater inflater = LayoutInflater.from(ventanaRutEjerc.this);
+        View dialogView = inflater.inflate(R.layout.activity_emergente, null);
 
+        // Referencias a los EditText
+        EditText etNombre = dialogView.findViewById(R.id.etNombre);
+        EditText etSeries = dialogView.findViewById(R.id.etSeries);
+        EditText etReps = dialogView.findViewById(R.id.etRepeticiones);
+        EditText etPeso = dialogView.findViewById(R.id.etPeso);
+
+        // Crear el AlertDialog
+        new AlertDialog.Builder(ventanaRutEjerc.this)
+                .setTitle("Añadir ejercicio")
+                .setView(dialogView)
+                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String nombre = etNombre.getText().toString();
+                        String series = etSeries.getText().toString();
+                        String repes = etReps.getText().toString();
+                        String peso = etPeso.getText().toString();
+
+                        EjerciciosTL ejer = new EjerciciosTL();
+                        ejer.setIdRutina(String.valueOf(idRutina));
+                        ejer.setDia(String.valueOf(dia));
+                        ejer.setNombre(nombre);
+                        ejer.setSeries(series);
+                        ejer.setRepes(repes);
+                        ejer.setPeso(peso);
+
+                        // Aquí actualizas tu tabla o lista con los datos
+                        Modelo obj = new Modelo();
+                        int respuesta = obj.InsertaEjercicios(ventanaRutEjerc.this,ejer);
+
+                        if(respuesta == 1){
+                            Toast.makeText(ventanaRutEjerc.this, "Ok", Toast.LENGTH_SHORT).show();
+                            recreate(); //recargar la pantalla
+                        } else{
+                            new AlertDialog.Builder(ventanaRutEjerc.this)
+                                    .setTitle("Error")
+                                    .setMessage("¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alpha.")
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                            //Toast.makeText(ventanaRutEjerc.this, "¡Ups! Algo salió mal. Por favor, infórmaselo al desarrollador. Recuerda que esta es una versión Alfa.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    //Boton de borrar ejer
+    public void onButtonClick(View view){
+        if(modoEliminar == false) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Modo Borrar Activado");
+            builder.setMessage("El siguiente ejercicio que pulses a continuación será eliminado junto a todos sus datos.\n"+
+                    "\n" + "Si no desea borrar ningun ejercicio, puedes volver a pulsar este botón para desactivar este modo borrar.");
+            builder.setPositiveButton("OK", null);
+            builder.show();
+
+            modoEliminar = true;
+        }else{
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Modo Borrar Desactivado");
+            builder.setMessage("El modo Borrar ha sido desactivado.");
+            builder.setPositiveButton("OK", null);
+            builder.show();
+            modoEliminar = false;
+        }
+    }
+
+    //CAMPOS DE CLASE
     private TableLayout tableLayout; //nuestra tabla
     private int idRutina; //idRutina
     private int dia; //dia de entrenamiento
-    private TextView nactDia;
+    private TextView nactDia; //TASK 6
+    private EditText nom_dia;
+    private boolean modoEliminar = false;
 
     private Handler tiempoEspera = new Handler(); //Lo usamos para hacer el tiempo de espera de 1500 segundos y llamara al run de Runnable
     private Runnable runnable; //para utilizar su metodo run así parar ese trozo hasta que yo diga

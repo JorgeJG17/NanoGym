@@ -1,5 +1,6 @@
 package app.jjg.nanogym.ventanasentrenar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -43,7 +44,8 @@ public class ventana_dias extends AppCompatActivity {
         // Crea un botón para cada dia recuperado
         for(int i = 1; i<=dias; i++){
             Button boton = new Button(this);
-            boton.setText("Día "+ i);
+            String nom_dia = consultarTipDia(ventana_dias.this,idRutina,i); //TASK 6
+            boton.setText("Día "+ i + " " + nom_dia); //Mpodificacion en la TASK 6
             boton.setTag(i);
 
             // Establecer listener para cuando se haga click en el botón
@@ -52,6 +54,8 @@ public class ventana_dias extends AppCompatActivity {
                 Intent intent = new Intent(this, ventanaRutEjerc.class);
                 intent.putExtra("dia", (int)v.getTag()); //Le enviamos el dia de la rutina a la siguiente pantalla
                 intent.putExtra("idRutina", idRutina);  //Le enviamos el id de la rutina a la siguiente pantalla
+                //intent.putExtra("nomDia", nom_dia); //TASK 6
+
                 startActivity(intent);
             });
 
@@ -71,6 +75,17 @@ public class ventana_dias extends AppCompatActivity {
         resultados.close();
 
         return dias;
+    }
+
+    //TASK 6
+    //Este metodop es publico y statico para usarlo fuera de esta clase
+    //Lo usamos para consultar el nombre del dia selecionado
+    public static String consultarTipDia(Context cont,int idRutina_n, int d){
+
+        Modelo obj = new Modelo(); //Nos conectamos a la bd
+        String nom_dia = obj.SeleccionarTipDia(cont,idRutina_n,d);
+
+        return nom_dia;
     }
 
 

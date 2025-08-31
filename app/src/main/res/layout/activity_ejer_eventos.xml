@@ -3,45 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#292929"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#292929"
-    tools:context=".ventanascrear.ventanaEjercicios">
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="finDiaClick"
-        android:text="Fin del día"
-        android:fontFamily="@font/departuremonoregular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
+    tools:context=".eventos.ejer_eventos">
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="396dp"
-        android:layout_height="527dp"
+        android:layout_width="401dp"
+        android:layout_height="581dp"
         android:background="#292929"
-        android:padding="0dp"
+        android:padding="16dp"
         android:showDividers="middle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintVertical_bias="0.367">
 
         <!-- Cabecera de la tabla con los títulos de las columnas -->
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="158dp"
+                android:layout_width="161dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:divider="?android:attr/dividerHorizontal"
@@ -73,83 +60,22 @@
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text=" Peso"
+                android:text="Peso"
                 android:textStyle="bold" />
 
-            <!-- Nueva columna Version //TASK: 13-->
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:layout_width="49dp"
+                android:layout_height="match_parent"
+                android:background="#e35353"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Ejer.Libre"
+                android:text="RM"
                 android:textStyle="bold" />
         </TableRow>
 
 
     </TableLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="53dp"
-        android:layout_height="26dp"
-        android:fontFamily="@font/departuremonoregular"
-        android:text="Día: "
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="93dp"
-        android:layout_height="23dp"
-        android:fontFamily="@font/departuremonoregular"
-        android:text="Nombre: "
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
-
-    <Button
-        android:id="@+id/new_fila"
-        android:layout_width="150dp"
-        android:layout_height="38dp"
-        android:fontFamily="@font/departuremonoregular"
-        android:onClick="new_fila_click"
-        android:text="+ ejercicio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868"
-        tools:ignore="MissingConstraints" />
-
-    <!--TASK 11-->
-    <Button
-        android:id="@+id/new_fila2"
-        android:layout_width="150dp"
-        android:layout_height="38dp"
-        android:fontFamily="@font/departuremonoregular"
-        android:onClick="clear_fila_click"
-        android:text="- ejercicio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.923"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
@@ -184,17 +110,33 @@
         app:layout_constraintVertical_bias="0.977" />
 
     <TextView
-        android:id="@+id/ndia"
+        android:id="@+id/textdias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
+        android:text=""
+        android:textSize="25sp"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintVertical_bias="0.037" />
+
+    <EditText
+        android:id="@+id/nomdia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/departuremonoregular"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
