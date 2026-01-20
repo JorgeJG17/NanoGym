@@ -126,30 +126,6 @@ public class ventanaRutEjerc extends AppCompatActivity {
                     }
                 });
 
-                //TODO ESTAMOS VIENDO COMO HACER QUE SE DESPLACE LA FILA ENTERA Y SE PUEDA PONER EN MEDIO
-                /*tablaEjerc.setOnDragListener((v, event) -> {
-                    switch (event.getAction()) {
-                        case DragEvent.ACTION_DRAG_ENTERED:
-                            v.setBackgroundColor(Color.LTGRAY);
-                            return true;
-                        case DragEvent.ACTION_DRAG_EXITED:
-                            v.setBackgroundColor(Color.TRANSPARENT);
-                            return true;
-                        case DragEvent.ACTION_DROP:
-                            View draggedRow = (View) event.getLocalState();
-                            if (draggedRow == v) return true; // no mover sobre sí mismo
-
-                            int index = tableLayout.indexOfChild(v);
-                            tableLayout.removeView(draggedRow);
-                            tableLayout.addView(draggedRow, index);
-                            v.setBackgroundColor(Color.TRANSPARENT);
-                            return true;
-                        case DragEvent.ACTION_DRAG_ENDED:
-                            v.setBackgroundColor(Color.TRANSPARENT);
-                            return true;
-                    }
-                    return true;
-                });*/
                 //***************************************************************************************************************************************
 
                 EditText textViewSeries = new EditText(this);
@@ -207,7 +183,7 @@ public class ventanaRutEjerc extends AppCompatActivity {
                 textViewPeso.setPadding(8, 8, 8, 8); //La cantidad de px de la caja
                 textViewPeso.setSingleLine(true);  //Limita el texto por si llega largo que la celda no se modifique
                 textViewPeso.setGravity(Gravity.CENTER); //Centrado en la celda
-                textViewPeso.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL); //TASK 10
+                textViewPeso.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);//InputType.TYPE_NUMBER_FLAG_DECIMAL); //TASK 10
                 //textViewPeso.setId(idEjercicio);
 
                 textViewPeso.addTextChangedListener(new TextWatcher() { //Lo mismo explicado en el campo Series pero con el campo Peso

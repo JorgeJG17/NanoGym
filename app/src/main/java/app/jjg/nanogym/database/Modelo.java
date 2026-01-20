@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Modelo {
-    //Vuleve a ponerla a la 3
-    private static final int DB_VERSION = 6; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
+
+    private static final int DB_VERSION = 9; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
 
     //Metodo que genera la base de datos, la llamara dbgym
     public SQLiteDatabase getConn(Context context){
@@ -360,6 +360,34 @@ public class Modelo {
 
         db.close();
         return res; //Devolvemos el resultado
+    }
+
+    //Consulta para sacar el historial de un ejercicio
+    public Cursor SeleccionarPesaje(Context context){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+
+        String sqlSelect = "SELECT id,peso,date FROM tlpesaje ORDER BY id DESC";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        //db.close();
+        return resultados; //Devolvemos el historial del ejercicio
+    }
+
+    //Metodo para insetar en Pesaje
+    public int InsertarPesaje(Context context, PesajeTL dto){
+        int res;
+        String sqlIP = "INSERT INTO tlpesaje (peso, date) VALUES ('"+ dto.getPeso() +"','"+ dto.getDate() +"')";
+        SQLiteDatabase db = this.getConn(context);
+        try{
+            db.execSQL(sqlIP);
+            res = 1; //Se inserto correctamente
+        }catch (Exception e){
+            res = 3333; //Lanza un error no controlado
+        }
+
+        db.close(); //Cerramos la bases de datos
+        return res;
     }
 
 }

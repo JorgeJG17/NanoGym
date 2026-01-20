@@ -21,6 +21,7 @@ import app.jjg.nanogym.R;
 import app.jjg.nanogym.database.Modelo;
 import app.jjg.nanogym.database.RutinasTL;
 import app.jjg.nanogym.eventos.ventanaEventos;
+import app.jjg.nanogym.pesaje.ventanaPesaje;
 import app.jjg.nanogym.ventanaAjuste;
 import app.jjg.nanogym.ventanascrear.ventanaRutinas;
 
@@ -196,6 +197,13 @@ public class ventana_entrenar extends AppCompatActivity {
         //Intent intent = new Intent(this, ventanaEventos.class);
         //startActivity(intent);
 
+    }
+
+    //Boton del Pesaje
+    public void onPesaje(View view){
+
+        Intent intent = new Intent(this, ventanaPesaje.class);
+        startActivity(intent);
     }
 
 
