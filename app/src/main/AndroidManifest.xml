@@ -13,6 +13,9 @@
         android:theme="@style/Theme.GymRutinaProyect"
         tools:targetApi="31">
         <activity
+            android:name=".calendario.Calendario"
+            android:exported="false" />
+        <activity
             android:name=".pesaje.ventanaPesaje"
             android:exported="false" />
         <activity

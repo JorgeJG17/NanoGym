@@ -8,7 +8,7 @@
     android:background="#292929"
     tools:context=".ventanascrear.ventanaEjercicios">
 
-    <Button
+    <!--<Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
+        app:layout_constraintVertical_bias="0.881" />-->
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="149dp"
+        android:layout_height="35dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="finDiaClick"
+        android:text="Fin del día"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.881"
+        tools:ignore="MissingConstraints" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -120,7 +138,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.059" />
 
-    <Button
+    <!--<Button
         android:id="@+id/new_fila"
         android:layout_width="150dp"
         android:layout_height="38dp"
@@ -133,10 +151,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" />-->
 
-    <!--TASK 11-->
     <Button
+        android:id="@+id/new_fila"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="new_fila_click"
+        android:text="+ ejercicio"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.868"
+        tools:ignore="MissingConstraints" />
+    <!--TASK 11-->
+    <!--<Button
         android:id="@+id/new_fila2"
         android:layout_width="150dp"
         android:layout_height="38dp"
@@ -149,7 +184,25 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" />-->
+
+    <Button
+        android:id="@+id/new_fila2"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="clear_fila_click"
+        android:text="- ejercicio"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.923"
+        tools:ignore="MissingConstraints"  />
 
     <TextView
         android:id="@+id/textView2"
@@ -172,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.3Beta"
+        android:text="Versión: 1.4Beta"
         android:textColor="#FFFFFF"
         android:textColorLink="#000000"
         android:textSize="13sp"

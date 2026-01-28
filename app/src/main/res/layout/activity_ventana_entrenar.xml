@@ -40,9 +40,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.147"></LinearLayout>
+        app:layout_constraintVertical_bias="0.147">
 
-    <Button
+    </LinearLayout>
+
+    <!--<Button
         android:id="@+id/button4"
         android:layout_width="113dp"
         android:layout_height="40dp"
@@ -53,35 +55,121 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871" />
+        app:layout_constraintVertical_bias="0.871" /> -->
 
 
     <Button
+        android:id="@+id/button4"
+        android:layout_width="110dp"
+        android:layout_height="39dp"
+        android:textSize="12sp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onButtonClick"
+        android:text="Eliminar"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871" />
+
+   <!-- <Button
         android:id="@+id/button10"
         android:layout_width="113dp"
         android:layout_height="40dp"
         android:onClick="onPesaje"
         android:text="Pesaje"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintVertical_bias="0.564" /> -->
+
+    <!-- <Button
+        android:id="@+id/button11"
+        android:layout_width="125dp"
+        android:layout_height="41dp"
+        android:onClick="onCalendario"
+        android:text="Calendario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.564" /> -->
+
+    <!--
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="113dp"
+            android:layout_height="40dp"
+            android:onClick="onButtonClick3"
+            android:text="Crear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.204"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.871" /> -->
+
+    <!--TASK 7 bt que nos lleva a la ventana de ajuste-->
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="119dp"
+        android:layout_height="43dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onPesaje"
+        android:text="Pesaje"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.787"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="127dp"
+        android:layout_height="43dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onCalendario"
+        android:text="Calendario"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="113dp"
-        android:layout_height="40dp"
+        android:layout_width="110dp"
+        android:layout_height="39dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
         android:onClick="onButtonClick3"
+        android:textSize="13sp"
         android:text="Crear"
+        app:backgroundTint="@null"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="603dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871" />
+        app:layout_constraintVertical_bias="0.871"/>
 
-    <!--TASK 7 bt que nos lleva a la ventana de ajuste-->
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="55dp"
@@ -186,7 +274,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.3Beta"
+        android:text="Versión: 1.4Beta"
         android:textColor="#FFFFFF"
         android:textColorLink="#000000"
         android:textSize="13sp"

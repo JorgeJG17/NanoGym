@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#292929"
+    tools:context=".calendario.Calendario">
+
+    <!--<Button
+        android:id="@+id/button12"
+        android:layout_width="192dp"
+        android:layout_height="42dp"
+        android:onClick="onBorrarEnt"
+        android:text="Quitar entrenamiento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.851" />-->
+
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="205dp"
+        android:layout_height="48dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onBorrarEnt"
+        android:text="Quitar entrenamiento"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.875" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="#121212"
+        app:mcv_selectionColor="#8044cc"
+
+        app:mcv_headerTextAppearance="@style/CalendarioCabecera"
+        app:mcv_dateTextAppearance="@style/CalendarioDias"
+        app:mcv_weekDayTextAppearance="@style/CalendarioSemana"
+
+        app:mcv_showOtherDates="all"
+        app:mcv_calendarMode="month"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--<Button
+        android:id="@+id/button7"
+        android:layout_width="194dp"
+        android:layout_height="43dp"
+        android:onClick="onEntrenamiento"
+        android:text="Añadir entrenamiento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.779" />-->
+
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="205dp"
+        android:layout_height="48dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onEntrenamiento"
+        android:text="Añadir entrenamiento"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.789" />
+
+    <!--<Button
+        android:id="@+id/button13"
+        android:layout_width="195dp"
+        android:layout_height="58dp"
+        android:onClick="onEntrenar"
+        android:text="Registrar Entrenamieto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.826" />-->
+
+    <Button
+        android:id="@+id/button13"
+        android:layout_width="205dp"
+        android:layout_height="48dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onEntrenar"
+        android:text="Registrar Entrenamieto"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:fontFamily="@font/departuremonoregular"
+        android:text="Creado por: Jorge Jiménez Garrido"
+        android:textColor="#FFFFFF"
+        android:textColorLink="#000000"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/departuremonoregular"
+        android:text="Versión: 1.4Beta"
+        android:textColor="#FFFFFF"
+        android:textColorLink="#000000"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

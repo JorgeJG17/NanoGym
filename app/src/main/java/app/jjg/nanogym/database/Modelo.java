@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Modelo {
 
-    private static final int DB_VERSION = 9; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
+    private static final int DB_VERSION = 10; //Si hacemos cambios en la base de datos, tablas nuevas, campos nuevos, sumamos uno
 
     //Metodo que genera la base de datos, la llamara dbgym
     public SQLiteDatabase getConn(Context context){
@@ -118,7 +118,7 @@ public class Modelo {
     }
 
     //Consulta para sacar el historial de un ejercicio
-    public Cursor SeleccionarHistorial(Context context, int idEjercicio){
+    public Cursor  SeleccionarHistorial(Context context, int idEjercicio){
         SQLiteDatabase db = this.getConn(context);
         Cursor resultados;
 
@@ -388,6 +388,89 @@ public class Modelo {
 
         db.close(); //Cerramos la bases de datos
         return res;
+    }
+
+
+    //Consulta para sacar el calendario de un ejercicio
+    public Cursor SeleccionarCalendario(Context context){
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+
+        String sqlSelect = "SELECT date, estado FROM tlcalendar ORDER BY id DESC";
+        resultados = db.rawQuery(sqlSelect, null);
+
+        //db.close();
+        return resultados; //Devolvemos el historial del ejercicio
+    }
+
+    //Consulta insetar el calendario de un ejercicio
+    public int InsertarCalendario(Context context,org.threeten.bp.LocalDate fecha){
+        SQLiteDatabase db = this.getConn(context);
+        int res;
+        //LocalDate fecha = LocalDate.now();
+        //DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String fechaFormateada = fecha.toString(); //fecha.format(formato);
+
+        String sqlSelect = "INSERT INTO tlcalendar (date, estado) VALUES ('"+fechaFormateada+"',2)";
+
+        try{
+            db.execSQL(sqlSelect);
+            res = 1; //Se inserto correctamente
+        }catch (Exception e){
+            res = 3333; //Lanza un error no controlado
+        }
+
+        db.close(); //Cerramos la bases de datos
+        return res;
+    }
+
+    //Consulta insetar el calendario de un ejercicio //TODO POR AQUI
+    public int BorrarCalendario(Context context, org.threeten.bp.LocalDate date) {
+
+        SQLiteDatabase db = this.getConn(context);
+        Cursor resultados;
+        int res;
+
+        //org.threeten.bp.format.DateTimeFormatter formato = org.threeten.bp.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaFormateada = date.toString(); //date.format(formato);
+
+        String sql = "DELETE FROM tlcalendar WHERE date = '"+ date +"'";
+
+        try{
+            db.execSQL(sql);
+            res = 1; //Se elimino correctamente
+        }catch (Exception e){
+            res = 3333; //Se lanza un error no controlado
+        }
+
+        db.close();
+        return res; //Devolvemos el resultado
+    }
+
+    public int MarcarCalendario(Context context, int estado, org.threeten.bp.LocalDate date){
+        SQLiteDatabase db = this.getConn(context);
+
+
+        //org.threeten.bp.format.DateTimeFormatter formato = org.threeten.bp.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaFormateada = date.toString();//date.format(formato);
+        String sql;
+        int res;
+        if (estado == 1) {
+           sql = "UPDATE tlcalendar SET estado ='" + estado + "' WHERE date = '" + fechaFormateada + "'";
+        }
+        else{
+            sql = "UPDATE tlcalendar SET estado ='" + estado + "' WHERE date < '" + fechaFormateada + "' and estado = 2";
+        }
+        try{
+            db.execSQL(sql);
+            res = 1; //Se inserto correctamente
+        }catch (Exception e){
+            res = 3333; //Lanza un error no controlado
+        }
+
+        db.close();
+        return res; //Devolvemos el resultado
     }
 
 }

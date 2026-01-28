@@ -10,8 +10,8 @@ android {
         applicationId = "app.jjg.nanogym"
         minSdk = 26
         targetSdk = 34
-        versionCode = 6 //este siempre sumar +1
-        versionName = "1.3Beta"
+        versionCode = 7 //este siempre sumar +1
+        versionName = "1.4Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -51,7 +51,8 @@ android {
 
 dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0") //Libreria de graficos de github
-
+    implementation("com.github.prolificinteractive:material-calendarview:2.0.1") //Libreria de calendario
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.2.1"); //(Esta arregla el error del LocalDate)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

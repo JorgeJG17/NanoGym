@@ -50,12 +50,14 @@ public class ventanaAjuste extends AppCompatActivity {
     public void onVersion(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¡Bienvenido/a a la Versión 1.3Beta!");
+        builder.setTitle("¡Bienvenido/a a la Versión 1.4Beta!");
         // Texto resumido para el AlertDialog
-        String mensaje = "• Nuevo Modo Pesaje: Añadida sección para registrar y controlar tu peso corporal.\n" +
-                "• Modo Eventos: Se ha cancelado el desarrollo del apartado de Eventos para priorizar otras mejoras.\n" +
-                "• Corrección de teclado: Arreglado el bug numérico al ingresar el peso.\n" +
-                "• Mejoras generales: Arreglo de bugs varios para mayor estabilidad.";
+        String mensaje = "•Nuevo Modo Calendario: Añadida sección para registrar y controlar tus entrenamientos.\n\n" +
+                "• Sistema de Disciplina: Los entrenamientos planeados no se pueden borrar el mismo día. ¡Cumple con tu palabra!\n\n" +
+                "• Marcado Automático: Los días no registrados pasarán a rojo automáticamente. ❌\n\n" +
+                "• Restricciones de Seguridad: Bloqueado el registro de entrenos en días pasados o futuros.\n\n" +
+                "• Interfaz Pixel Art: Nuevos botones estilo retro para una experiencia más gamer. 🕹️\n\n" +
+                "• Optimización: Corrección de bugs internos";
 
         builder.setMessage(mensaje);
         builder.setPositiveButton("OK", null);

@@ -16,7 +16,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") } //para la Libreria de graficos de github
+        maven { url = uri("https://jitpack.io") } //para la Librerias de github
     }
 }
 

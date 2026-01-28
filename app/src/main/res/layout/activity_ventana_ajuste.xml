@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.3Beta"
+        android:text="Versión: 1.4Beta"
         android:textColor="#FFFFFF"
         android:textColorLink="#000000"
         android:textSize="13sp"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
 
-    <Button
+    <!--<Button
         android:id="@+id/button2"
         android:layout_width="250dp"
         android:layout_height="41dp"
@@ -64,9 +64,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintVertical_bias="0.211" />-->
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="239dp"
+        android:layout_height="44dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onButtonClick2"
+        android:text="Antes de empezar"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <!--<Button
         android:id="@+id/button3"
         android:layout_width="250dp"
         android:layout_height="41dp"
@@ -79,9 +96,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.315" />-->
 
     <Button
+        android:id="@+id/button3"
+        android:layout_width="239dp"
+        android:layout_height="44dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onVersion"
+        android:text="Versión: 1.4Beta"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
+
+    <!--<Button
         android:id="@+id/button9"
         android:layout_width="250dp"
         android:layout_height="41dp"
@@ -94,6 +128,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
+        app:layout_constraintVertical_bias="0.718" />-->
+
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="239dp"
+        android:layout_height="44dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onbd"
+        android:text="BASE DE DATOS"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

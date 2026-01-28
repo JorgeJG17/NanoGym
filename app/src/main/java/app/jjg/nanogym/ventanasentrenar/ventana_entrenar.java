@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import app.jjg.nanogym.R;
+import app.jjg.nanogym.calendario.Calendario;
 import app.jjg.nanogym.database.Modelo;
 import app.jjg.nanogym.database.RutinasTL;
 import app.jjg.nanogym.eventos.ventanaEventos;
@@ -182,7 +183,7 @@ public class ventana_entrenar extends AppCompatActivity {
         startActivity(intent);
     }
     //TASK 5
-    public void onEventos(View view){
+    /*public void onEventos(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("📅 Eventos en Octubre");
@@ -197,7 +198,7 @@ public class ventana_entrenar extends AppCompatActivity {
         //Intent intent = new Intent(this, ventanaEventos.class);
         //startActivity(intent);
 
-    }
+    }*/
 
     //Boton del Pesaje
     public void onPesaje(View view){
@@ -205,6 +206,15 @@ public class ventana_entrenar extends AppCompatActivity {
         Intent intent = new Intent(this, ventanaPesaje.class);
         startActivity(intent);
     }
+
+
+    //Boton del Calendario
+    public void onCalendario(View view){
+
+        Intent intent = new Intent(this, Calendario.class);
+        startActivity(intent);
+    }
+
 
 
 

@@ -6,4 +6,19 @@
     </style>
 
     <style name="Theme.GymRutinaProyect" parent="Base.Theme.GymRutinaProyect" />
+    <style name="CalendarioCabecera">
+        <item name="android:textColor">#8044cc</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarioDias">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CalendarioSemana">
+        <item name="android:textColor">#777777</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

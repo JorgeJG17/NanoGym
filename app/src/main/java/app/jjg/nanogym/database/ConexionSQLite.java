@@ -18,6 +18,7 @@ public class ConexionSQLite extends SQLiteOpenHelper {
     final String TBL_EJE = "CREATE TABLE tlejercicios (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, dia INTEGER, idrutinas INTEGER, series INTEGER, repes INTEGER, peso INTEGER)"; //tablas de los ejercicios
     final String TBL_HIS = "CREATE TABLE tlhistorial (id INTEGER PRIMARY KEY AUTOINCREMENT, idejercicio INTEGER, repes INTEGER, peso INTEGER, date TEXT)";
     final String TBL_PESAJE = "CREATE TABLE tlpesaje (id INTEGER PRIMARY KEY AUTOINCREMENT, peso INTEGER, date TEXT)";
+    final String TBL_CALENDAR = "CREATE TABLE tlcalendar (id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT UNIQUE,estado INTEGER)";
     //final String TBL_MET = "CREATE TABLE tleventos (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo TEXT UNIQUE,nombre TEXT, fechaini TEXT, fechafin TEXT, dias INTEGER, hiper TEXT, perder TEXT, fuerza TEXT, salud TEXT, toni TEXT)";
 
     public ConexionSQLite(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -34,6 +35,7 @@ public class ConexionSQLite extends SQLiteOpenHelper {
         db.execSQL(TBL_PESAJE);
         db.execSQL("ALTER TABLE tlejercicios ADD COLUMN nom_dia TEXT"); //Un nuevo campo para la tabla
         db.execSQL("ALTER TABLE tlejercicios ADD COLUMN orden INTEGER"); //Un nuevo campo para la tabla
+        db.execSQL(TBL_CALENDAR);
     }
 
     @Override //Llamara a onUpgrade si detesta que la version nueva es mayor que la version de la db del dipositivo
@@ -75,6 +77,10 @@ public class ConexionSQLite extends SQLiteOpenHelper {
 
         if (oldVersion < 9 && newVersion >= 9){
             db.execSQL(TBL_PESAJE);
+        }
+
+        if(oldVersion < 10 && newVersion >= 10){
+            db.execSQL(TBL_CALENDAR);
         }
     }
 

@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/departuremonoregular"
-        android:text="Versión: 1.3Beta"
+        android:text="Versión: 1.4Beta"
         android:textColor="#FFFFFF"
         android:textColorLink="#000000"
         android:textSize="13sp"
@@ -121,7 +121,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.356" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btSiguienteRut"
         android:layout_width="170dp"
         android:layout_height="58dp"
@@ -134,6 +134,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintVertical_bias="0.472" />-->
 
+    <Button
+        android:id="@+id/btSiguienteRut"
+        android:layout_width="170dp"
+        android:layout_height="58dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="crearRutClick"
+        android:text="Siguiente"
+        app:backgroundTint="@null"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.472" />
 </androidx.constraintlayout.widget.ConstraintLayout>

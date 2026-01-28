@@ -47,7 +47,7 @@
 
     </TableLayout>
 
-    <Button
+    <!--<Button
         android:id="@+id/button10"
         android:layout_width="242dp"
         android:layout_height="42dp"
@@ -57,7 +57,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.652" />-->
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="247dp"
+        android:layout_height="42dp"
+        android:background="@drawable/imagen_bt"
+        android:fontFamily="@font/departuremonoregular"
+        android:onClick="onPesaje"
+        android:text="Registrar un nuevo pesaje"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.651"
+        tools:ignore="MissingConstraints" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
