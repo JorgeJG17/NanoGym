@@ -6,24 +6,8 @@
 
 ---
 
-## 🚀 Características Principales
-
-* **Sistema de Disciplina Inmutable:** Lógica programada para impedir la manipulación de registros pasados o el borrado de planes en el día en curso.
-* **Arquitectura Offline-First:** Persistencia de datos local mediante SQLite. Sin publicidad, sin rastreadores y sin necesidad de internet.
-* **Control de Composición Corporal:** Registro independiente de peso con visualización de historial y tendencias.
-* **Estética Pixel Art:** Interfaz personalizada con recursos gráficos propios para una experiencia visual retro y ligera.
-
----
-
-## 🛠️ Stack Técnico
-
-* **Lenguaje:** Java.
-* **Base de Datos:** SQLite (Gestión relacional local).
-* **Herramientas:** Android Studio    
-
----
 ## 🌐 Enlaces y Documentación
 
+* **Web del Proyecto:** [nanogym.super.site](https://nanogym.super.site) > **Nota:** En esta web explico detalladamente el funcionamiento de la app, capturas de pantalla, lógica de disciplina y manual de uso.
 * **Portfolio Personal:** [jorgejg.com](https://jorgejg.com)
-* **Web del Proyecto:** [nanogym.super.site](https://nanogym.super.site)
 * **Perfil Profesional:** [LinkedIn](www.linkedin.com/in/jorge-jiménez-garrido-641a29310)
