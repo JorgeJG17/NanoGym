@@ -9,6 +9,6 @@
 ## 🌐 Enlaces y Documentación
 
 * **Web del Proyecto:** [nanogym.super.site](https://nanogym.super.site)
-  > **Nota:** En esta web explico detalladamente el funcionamiento de la app, capturas de pantalla, lógica de disciplina y manual de uso.
+  > **Nota:** En esta web explico detalladamente el funcionamiento de la app,con capturas de pantalla, etc...
 * **Portfolio Personal:** [jorgejg.com](https://jorgejg.com)
 * **Perfil Profesional:** [LinkedIn](www.linkedin.com/in/jorge-jiménez-garrido-641a29310)
