@@ -1,48 +1,29 @@
-🏋️ NanoGym (v1.4 Beta)
-NanoGym es una aplicación nativa para Android diseñada bajo la filosofía de "Fricción Cero". Su objetivo es eliminar las barreras entre el atleta y su registro de entrenamiento, priorizando la disciplina inmutable, la privacidad total y el rendimiento offline.
+# 🏋️ NanoGym (v1.4 Beta)
 
-[!IMPORTANT] Estado del Proyecto: Actualmente en fase Beta, utilizada a diario como herramienta principal de entrenamiento personal.
+**NanoGym** es una aplicación nativa para Android diseñada bajo la filosofía de **"Fricción Cero"**. Su objetivo es eliminar las barreras entre el atleta y su registro de entrenamiento, priorizando la **disciplina inmutable**, la **privacidad total** y el **rendimiento offline**.
 
-🚀 Características Principales
-Sistema de Disciplina Inmutable: Lógica programada para impedir la manipulación de registros pasados y el borrado de entrenamientos el mismo día. Si no se completa, el sistema lo marca automáticamente como "Fallido".
+> **Nota del desarrollador:** Actualmente el proyecto se encuentra en fase Beta, siendo mi herramienta principal de uso diario para gestionar mis rutinas y progreso físico.
 
-Arquitectura Offline-First: Persistencia de datos local sin dependencia de servidores externos ni publicidad.
+---
 
-Control de Composición Corporal: Módulo independiente para el seguimiento de peso con gráficas de evolución.
+## 🚀 Características Principales
 
-Estética Pixel Art: Interfaz personalizada para una experiencia visual única y ligera.
+* **Sistema de Disciplina Inmutable:** Lógica programada para impedir la manipulación de registros pasados o el borrado de planes en el día en curso.
+* **Arquitectura Offline-First:** Persistencia de datos local mediante SQLite. Sin publicidad, sin rastreadores y sin necesidad de internet.
+* **Control de Composición Corporal:** Registro independiente de peso con visualización de historial y tendencias.
+* **Estética Pixel Art:** Interfaz personalizada con recursos gráficos propios para una experiencia visual retro y ligera.
 
-🛠️ Stack Técnico
-Lenguaje: Java (Android Nativo).
+---
 
-Persistencia: SQLite (Gestión de base de datos relacional local).
+## 🛠️ Stack Técnico
 
-IDE: Android Studio & Google Antigravity.
+* **Lenguaje:** Java.
+* **Base de Datos:** SQLite (Gestión relacional local).
+* **Herramientas:** Android Studio    
 
-UI: Material Design Components + Custom Drawables (Pixel Art).
+---
+## 🌐 Enlaces y Documentación
 
-🧠 Lógica de Negocio (Backend Focus)
-El corazón de NanoGym es su gestor de estados. A diferencia de otras apps, aquí la integridad de los datos es clave para la disciplina:
-
-Java
-// Ejemplo conceptual de la validación de disciplina
-if (fechaSeleccionada <= hoy && !entrenamientoCompletado) {
-    bloquearBorrado(); // El compromiso no se negocia
-}
-Gris: Planificado (Futuro).
-
-Verde: Completado (Éxito).
-
-Rojo: Fallido (Día pasado sin completar).
-
-📁 Estructura del Proyecto
-/app/src/main/java: Lógica de controladores y gestión de SQLite.
-
-/app/src/main/res/drawable: Recursos gráficos Pixel Art personalizados.
-
-/app/src/main/res/layout: Definiciones de interfaz XML optimizadas.
-
-🌐 Enlaces de Interés
-Documentación y Web del Proyecto: nanogym.super.site
-
-Contacto: [Tu LinkedIn]
+* **Portfolio Personal:** [jorgejg.com](https://jorgejg.com)
+* **Web del Proyecto:** [nanogym.super.site](https://nanogym.super.site)
+* **Perfil Profesional:** [LinkedIn](www.linkedin.com/in/jorge-jiménez-garrido-641a29310)
