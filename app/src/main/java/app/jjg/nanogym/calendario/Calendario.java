@@ -1,3 +1,10 @@
+/*
+Clase Calendario.java
+Fecha actualiza: 26/03/2026
+Autor: Jorge Jimenez Garrido
+Descripcion: Clase de la ventana activity_calendario.xml
+*/
+
 package app.jjg.nanogym.calendario;
 
 import android.content.DialogInterface;
@@ -52,23 +59,27 @@ public class Calendario extends AppCompatActivity {
             -PONER UN MENSAJE SEMANAL CON LO DÍAS ENTRENADO Y PROGRAMADOS DE LA SEMANA
             -Mirar si podemos hacer un diseño de los botone mas chulos estilos pixel
      */
+
+    //Metodo para pintar el calendario
     private void calendar(){
-        // 1. Conectar con el XML
+        //Conectar con el XML
         MaterialCalendarView calendarView = findViewById(R.id.calendarView);
 
-        // 2. Configurar el comportamiento inicial
         calendarView.setSelectedDate(CalendarDay.today()); // Selecciona el día de hoy al abrir
-        // 1. Creamos una lista de días (por ahora a mano para probar)
+
+        //Creamos listas para recoger los diferente tipos de dias ya almacenadoe en la bd
         ArrayList<CalendarDay> diasEntrenados = new ArrayList<>();
         ArrayList<CalendarDay> diasFaltados = new ArrayList<>();
         ArrayList<CalendarDay> diasPendientes = new ArrayList<>();
-        List<CaledarTL> c =  consultaBD();
+        List<CaledarTL> c =  consultaBD();//Recuperamos los datos de la bd que vienen en una lista
 
-        //diasEntrenados.add(CalendarDay.from(2026, 1, 20)); // 20 de Enero //Esta son fechas de PRUEBAA
+        //Esta son fechas de PRUEBA
+        //diasEntrenados.add(CalendarDay.from(2026, 1, 20)); // 20 de Enero
         //diasEntrenados.add(CalendarDay.from(2026, 1, 22)); // 22 de Enero
-        if(c!=null && !c.isEmpty()) {
 
-            for (CaledarTL datos : c) {
+        if(c!=null && !c.isEmpty()) { //Comprobamos que esa lista no este vacia
+
+            for (CaledarTL datos : c) { //Recorremos la lista para comprobar cada fecha recuperada
 
                 String date = datos.getDate();
                 String color;
@@ -77,6 +88,7 @@ public class Calendario extends AppCompatActivity {
 
                 //diasEntrenados.add(CalendarDay.from(fecha));
 
+                //comprobamos el estado de cada fecha recuperada, segun el estado de las fechas se guardar en la lista correspondiente
                 switch (Integer.parseInt(datos.getestado())) {
 
                     case FALTADO:
@@ -96,7 +108,10 @@ public class Calendario extends AppCompatActivity {
             }
         }
 
+        //Comprobamos que las listas no se encuentren vacias, si hay datos se añaden al calendario con un color
         if(diasFaltados!=null && !diasFaltados.isEmpty()){
+            //se crea un obejto de la clase nuestra CalendarioDEcorator que implementa una interfaz y ese objeto se lo enviamos al metodo addDEcorator
+            //para que se encarge de pintar los dias almacenados en ese objeto con el fondo/color/imagen alamecnado en ese objeto
             calendarView.addDecorator(new CalendarioDecorator(Calendario.this,R.drawable.circulo_rojo,diasFaltados));
         }
 
@@ -108,17 +123,18 @@ public class Calendario extends AppCompatActivity {
             calendarView.addDecorator(new CalendarioDecorator(Calendario.this,R.drawable.circulo_gris,diasPendientes));
         }
 
-        // 2. Le pasamos la lista al calendario con el color morado de tu app
         //calendarView.addDecorator(new CalendarioDecorator(Color.parseColor("#4CAF50"), diasEntrenados));
 
-        // 3. Escuchar los clics del usuario
+        //Si el usuario pulsa algun día del calendario, llamara a este evento que estara esperando.
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                // Esto sacará un mensaje con la fecha que toques
-                f_seleccionada = date.getDate();//String.format("%02d/%02d/%04d", date.getDay(), date.getMonth() + 1,date.getYear());
+                //String.format("%02d/%02d/%04d", date.getDay(), date.getMonth() + 1,date.getYear());
+                f_seleccionada = date.getDate(); //Guardamos la fehca seleccionada por el usuario
                 //Toast.makeText(MainActivity.this, "Día seleccionado: " + fechaSeleccionada, Toast.LENGTH_SHORT).show();
 
+                //Vemos si esa fecha se encuntra entre algunas de las lista
+                //Posible bug con la variable contiene, tenmos que aclarar esto //TODO
                if(diasEntrenados.contains(date) || diasFaltados.contains(date) || diasPendientes.contains(date)){
                    contiene = true;
                }
@@ -127,43 +143,47 @@ public class Calendario extends AppCompatActivity {
         });
     }
 
-    //Consulta a la DB para sacar el historial, devuelve una lista de objetos HistorialTL
+    //Consulta a la DB para sacar las fechas guardadas
     private List<CaledarTL> consultaBD(){
 
         Modelo obj = new Modelo();
         Cursor resultados = obj.SeleccionarCalendario(Calendario.this); //Llamamos al SeleccionarCalendario para hacer la consulta en la db
 
-        List<CaledarTL> c = new ArrayList<>(); //Lista donde vamos almacenar cada objeto HistorialTl es decir cada fila de nuestra futura tabla
+        List<CaledarTL> c = new ArrayList<>(); //Lista para almacenar objetos de tipo CalendarTl
 
-        if (resultados != null && resultados.moveToFirst()) {
+        if (resultados != null && resultados.moveToFirst()) { //Comprobamos que el resultado de la consulta que venga con datos
             do {
-                // Obtén repes,peso,date del cursor del historial del ejercicio
-                String date = resultados.getString(0);
-                int estado = resultados.getInt(1);
+
+                String date = resultados.getString(0); //fecha
+                int estado = resultados.getInt(1); //su estado
 
 
+                //un objeto calendartl para almacenar la fecha y su estado, guardarlo en la lista, cada objeto se usara mas tarde
                 CaledarTL calendar_res = new CaledarTL();
-                calendar_res.setDate(date); //Guardo la fecha
-                calendar_res.setestado(Integer.toString(estado)); //Guardo estado
+                calendar_res.setDate(date);
+                calendar_res.setestado(Integer.toString(estado));
 
-                // Crea un objeto Caledar y le añadimos el Caledario de ese ejercicio
                 c.add(calendar_res);
 
-            } while (resultados.moveToNext());  // Continúa hasta el siguiente resultado en el cursor
+            } while (resultados.moveToNext());  //Paamos al siguiente resultado, si ya no hay mas pues se sale del bucle
         }
 
-        // Cierra el cursor después de usarlo
+        // Aseguramos que se cierre el curso una vez usado, si viene vacio, entoces no es necesario
         if (resultados != null) {
             resultados.close();
         }
 
-        return c; //devolvemos la lista
+        return c; //Devolvemos la lista con objetos CaledarTL almacenados (puede devolverla vacia segun como es el metodo actualmente)
     }
 
-    //bt annadir entrenamiento
+    //BT annadir entrenamiento
     public void onEntrenamiento(View view){
         LocalDate fecha = LocalDate.now();
 
+        /*Se comprueba si la fecha seleccionada cuando el usario a pulsado este bt no sea del pasado
+          y que tampoco se encuentra ya en la bd
+          Si es del presente y no esta en la bd insertara la fecha en el calendario con el estado PENDIENTE = 2
+         */
         if(f_seleccionada.isBefore(fecha)){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -188,10 +208,13 @@ public class Calendario extends AppCompatActivity {
 
     }
 
-    //bt annadir entrenamiento
+    //bt entrenar
     public void onEntrenar(View view){
         LocalDate fecha = LocalDate.now();
-
+        /* Se compruba si existe un dia en el entrenamineto seleccionado
+           No se permite marcar como entrenado días del pasado o futuro.
+           Si es hoy pues se actualiza el estado de la fecha seleccionada a Entrenado = 1
+         */
         if(!contiene){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -218,7 +241,8 @@ public class Calendario extends AppCompatActivity {
 
     //bt borrar entrenamiento
     public void onBorrarEnt(View view){
-
+        //Para poder borrar un entrenamineto primero debe de haber un entrenamineto en el dia pulsado, no se borrar
+        //entremainetos en el dia de hoy, si no se entrena pues el sistema te lo maracra automaticamente como fallido al terminar el dia
         LocalDate fecha = LocalDate.now();
         if(!contiene){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -235,7 +259,7 @@ public class Calendario extends AppCompatActivity {
             builder.setPositiveButton("Aceptar el reto", null);
             builder.show();
         }else{
-
+            //Si se va borrar se realizar un control de confirmacion
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Confirmación");
             builder.setMessage("¿Estas seguro de borrar este día de entrenamiento: " + f_seleccionada + "?");
@@ -253,7 +277,7 @@ public class Calendario extends AppCompatActivity {
                         builder.show();
 
                         tiempoEspera.removeCallbacks(runnable); // Cancelamos la ejecución anterior (si hay alguna programada)
-                        runnable = () -> { //En este lambda no hace falta poner el metodo run porque esta interfaz solo tiene ese metodo entcoes entiende que ese el que esta poniendo
+                        runnable = () -> { //En este lambda no hace falta poner el metodo run porque esta interfaz solo tiene ese metodo entcoes entiende que es ese el que esta poniendo
                             recreate(); //recargar la pantalla
                         };
                         tiempoEspera.postDelayed(runnable, 1500);// Programamos la tarea para que se ejecute dentro de 1500 ms (1.5 segundo)
@@ -267,7 +291,7 @@ public class Calendario extends AppCompatActivity {
                     }
                 }
             });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() { //Si dice que no pues desactivamos el modo borrar
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() { //Si dice que no hacemos nada
                 public void onClick(DialogInterface dialog, int which) {
 
                 }
@@ -276,6 +300,8 @@ public class Calendario extends AppCompatActivity {
         }
     }
 
+    //A este merodo se le llama cada vez que entramos en la ventana del calendario
+    //Lo usamos para marcar los entrenaminetos pasados que siguen en pendiente, se ponen directamnet como fallo
     public void revisarEntrenamientosCaducados() {
         Modelo obj = new Modelo();
         LocalDate fecha = LocalDate.now();

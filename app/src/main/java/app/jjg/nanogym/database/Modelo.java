@@ -1,3 +1,11 @@
+/*
+Clase Modelo.java
+Fecha actualiza: 26/03/2026
+Autor: Jorge Jimenez Garrido
+Descripcion: Clase con metodos para hacer las consultas a la base de datos, todas las consultas deben de estar en esta clase
+Luego cada pagina llamara a esta clase opara utilizarlas si es necesario
+*/
+
 package app.jjg.nanogym.database;
 
 import android.content.Context;
@@ -400,7 +408,7 @@ public class Modelo {
         resultados = db.rawQuery(sqlSelect, null);
 
         //db.close();
-        return resultados; //Devolvemos el historial del ejercicio
+        return resultados; //Devolvemos calendario de dias guardados
     }
 
     //Consulta insetar el calendario de un ejercicio
@@ -425,7 +433,7 @@ public class Modelo {
         return res;
     }
 
-    //Consulta insetar el calendario de un ejercicio //TODO POR AQUI
+    //Consulta para borrarrun dia el calendario
     public int BorrarCalendario(Context context, org.threeten.bp.LocalDate date) {
 
         SQLiteDatabase db = this.getConn(context);
@@ -444,10 +452,11 @@ public class Modelo {
             res = 3333; //Se lanza un error no controlado
         }
 
-        db.close();
+        db.close(); //Cerramos la bases de datos
         return res; //Devolvemos el resultado
     }
 
+    //Metodo para marcar en el calendario el estado de una fecha ya guardada en la bd
     public int MarcarCalendario(Context context, int estado, org.threeten.bp.LocalDate date){
         SQLiteDatabase db = this.getConn(context);
 
@@ -464,12 +473,12 @@ public class Modelo {
         }
         try{
             db.execSQL(sql);
-            res = 1; //Se inserto correctamente
+            res = 1; //Se actualizo correctamnet
         }catch (Exception e){
             res = 3333; //Lanza un error no controlado
         }
 
-        db.close();
+        db.close(); //Cerramos la bases de datos
         return res; //Devolvemos el resultado
     }
 

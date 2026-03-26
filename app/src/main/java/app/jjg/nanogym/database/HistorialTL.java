@@ -1,3 +1,9 @@
+/*
+Clase HistorialTL.java
+Fecha actualiza: 26/03/2026
+Autor: Jorge Jimenez Garrido
+Descripcion: Clase para objetos tipos HistorialTL getters y setters
+*/
 package app.jjg.nanogym.database;
 
 public class HistorialTL {

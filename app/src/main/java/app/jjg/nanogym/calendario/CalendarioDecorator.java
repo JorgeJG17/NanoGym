@@ -1,3 +1,10 @@
+/*
+Clase CalendarioDecorator.java
+Fecha actualiza: 26/03/2026
+Autor: Jorge Jimenez Garrido
+Descripcion: Clase para pintar los día del calendario, donde cuando llamo al constructor, es para crear un objeto con los dias y la imagen del fondo
+que vamos a usar para esos dias
+*/
 package app.jjg.nanogym.calendario;
 
 import android.content.Context;

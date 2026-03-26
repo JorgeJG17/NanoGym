@@ -1,3 +1,12 @@
+/*
+Clase CaonexionSQLite.java
+Fecha actualiza: 26/03/2026
+Autor: Jorge Jimenez Garrido
+Descripcion: Clase para relizar la conexion de a la bd local desde la Modelo.java
+aqui tenemos las tablas y un metodo para ejecutar script al inicar la app, y un control de version de la app que tiene la bd del movil
+con la que llega en la actualizacion asi saber si se crea por primera vez o solo ejecutar si trae algo de bd en la actualizacion
+*/
+
 package app.jjg.nanogym.database;
 import android.content.Context;
 import android.database.SQLException;
@@ -13,7 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ConexionSQLite extends SQLiteOpenHelper {
-
+    //TABLAS
     final String TBL_USR = "CREATE TABLE tlrutinas (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT UNIQUE, dias INTEGER)"; //tabla de la rutinas
     final String TBL_EJE = "CREATE TABLE tlejercicios (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, dia INTEGER, idrutinas INTEGER, series INTEGER, repes INTEGER, peso INTEGER)"; //tablas de los ejercicios
     final String TBL_HIS = "CREATE TABLE tlhistorial (id INTEGER PRIMARY KEY AUTOINCREMENT, idejercicio INTEGER, repes INTEGER, peso INTEGER, date TEXT)";
@@ -26,24 +35,24 @@ public class ConexionSQLite extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    @Override //Metodo para crear las tablas, llamara al onCreate cuando sea la primera vez que instala la app
+    @Override //LLamara al onCreate cuando sea la primera vez que instala la app
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(TBL_USR); //Version 1
-        db.execSQL(TBL_EJE); //Version 1
-        db.execSQL(TBL_HIS); //Version 2 para dispositivos nuevos
-        db.execSQL(TBL_PESAJE);
-        db.execSQL("ALTER TABLE tlejercicios ADD COLUMN nom_dia TEXT"); //Un nuevo campo para la tabla
-        db.execSQL("ALTER TABLE tlejercicios ADD COLUMN orden INTEGER"); //Un nuevo campo para la tabla
-        db.execSQL(TBL_CALENDAR);
+        db.execSQL(TBL_USR); //Tabla rutinas
+        db.execSQL(TBL_EJE); //Tabla ejercicios
+        db.execSQL(TBL_HIS); //Tabla Historial
+        db.execSQL(TBL_PESAJE); //Tabla Pesaje
+        db.execSQL("ALTER TABLE tlejercicios ADD COLUMN nom_dia TEXT"); //Un nuevo campo para la tabla ejercicios
+        db.execSQL("ALTER TABLE tlejercicios ADD COLUMN orden INTEGER"); //Un nuevo campo para la tabla ejecicios
+        db.execSQL(TBL_CALENDAR); //Tabla Calendario
     }
 
-    @Override //Llamara a onUpgrade si detesta que la version nueva es mayor que la version de la db del dipositivo
+    @Override //Llamara a onUpgrade si detesta que la version nueva es mayor que la version de la bases de datos del dipositivo
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        if(oldVersion < 2 && newVersion >= 2){ //Actualizar la db con la version 2
+        if(oldVersion < 2 && newVersion >= 2){ //Actualizar si la bbdd esta en una version inferior a 2
 
-            db.execSQL(TBL_HIS);
+            db.execSQL(TBL_HIS); //Tabla Historial
         }
         /*if (oldVersion < 8 && newVersion >= 8){ //Actualizar la db con la version 3
             //TASK 6
@@ -75,34 +84,54 @@ public class ConexionSQLite extends SQLiteOpenHelper {
             //db.execSQL("INSERT into tlejercicios (nombre,dia,idrutina,series,repes,peso,ideventos,levento) VALUES ('El Origen','21/07/2025','04/08/2025','3')");
         }*/
 
-        if (oldVersion < 9 && newVersion >= 9){
-            db.execSQL(TBL_PESAJE);
+        if (oldVersion < 9 && newVersion >= 9){ //Actualizar si la bbdd esta en una version inferior a 9
+            db.execSQL(TBL_PESAJE); //Tabla Pesaje
         }
 
-        if(oldVersion < 10 && newVersion >= 10){
-            db.execSQL(TBL_CALENDAR);
+        if(oldVersion < 10 && newVersion >= 10){ //Actualizar si la bbdd esta en una version inferior a 10
+            db.execSQL(TBL_CALENDAR); //Tabla Calendar
         }
     }
 
+    //Metodo para ejecutar un script sql que esta guardado en assets
     private void EjecutarScript(SQLiteDatabase db, Context context, String assetFileName){
         try {
+            //El context lo necesitamos para accedera al empaquetado de la app, es como un carnet de identidad
+            //Sin el context no podemos acceder a la carpeta Assets
+
+            //En el context usamos el getAssets para devolver el contendio de esa carpeta y .open para delvolver
+            //justo ese archivo que se encunetra en esa carpeta, eso devuelve un InputStream
+
+            /*Un InputStream es el flujo de bytes (ceros y unos).
+             *No le importa si el archivo es un texto, una imagen o un sonido; su trabajo es simplemente
+             * mover esos bits de un lugar a otro. */
+
             InputStream is = context.getAssets().open(assetFileName);
+
+            //InputStreamReader traduce  esos bytes(0 y 1) a caracteres (letras)
+            //BufferedReader Agrupa las letras en lineas completas
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
             StringBuilder statement = new StringBuilder();
             String line;
 
+            //Esto es un seguro de vida, si algo en el script falla no se guaradara ningun camvio ya ejecutado
+            //Aseguramos que la bbdd no se quede a medias
             db.beginTransaction();
             try {
+                //Con readLine pasamos a la siguiente linea y se guarda en line
                 while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty() || line.startsWith("--")) continue; // saltar líneas vacías o comentarios
 
-                    statement.append(line);
+                    line = line.trim(); //Quitamos espacios innecesarios al principio y final de la linea
+                    if (line.isEmpty() || line.startsWith("--")) continue; // ignoramos las lineas vacias o comentarios
+                    statement.append(line); //Esta acumulando los trozos del codigo
+
+                    //Si llegamos al final de una instruccion entramos y ejecutamos la sentencia
                     if (line.endsWith(";")) {
-                        // Ejecutar sentencia
-                        String sql = statement.toString();
-                        db.execSQL(sql);
-                        statement.setLength(0); // reiniciar
+
+                        String sql = statement.toString(); //Intruccion guardada
+                        db.execSQL(sql); //ejecutar como siempre hacemos
+                        statement.setLength(0); //Limpiamos el acumulador para la siguiente instruccion
                     }
                 }
                 db.setTransactionSuccessful();
@@ -111,10 +140,10 @@ public class ConexionSQLite extends SQLiteOpenHelper {
                 reader.close();
             }
         } catch (IOException | SQLiteException e) {
-            e.printStackTrace(); // O mostrar un log
+            e.printStackTrace(); //error
         }
     }
 
-    //Campos de calse
+    //Campos de clase
     Context context;
 }
