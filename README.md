@@ -8,7 +8,7 @@
 
 ## 🌐 Enlaces y Documentación
 
-* **Documentación de usuario:** [Documentación NanoGym Notion]([https://app.notion.com/p/Bienvenido-a-la-Beta-de-NanoGym-203429e5ac5c80de83ddf56a74b8e56d?source=copy_link])
+* **Documentación de usuario:** [Documentación NanoGym Notion](https://app.notion.com/p/Bienvenido-a-la-Beta-de-NanoGym-203429e5ac5c80de83ddf56a74b8e56d?source=copy_link)
   > **Nota:** En esta documentación explico detalladamente el funcionamiento de la app,con capturas de pantalla, etc... NanoGym está actualmente en fase Beta. La documentación se actualiza junto con las nuevas versiones de la aplicación.
 * **Portfolio Personal:** [jorgejg.com](https://jorgejg.com)
 * **Perfil Profesional:** [LinkedIn](www.linkedin.com/in/jorge-jiménez-garrido-641a29310)
